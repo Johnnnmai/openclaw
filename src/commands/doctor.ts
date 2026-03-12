@@ -52,6 +52,7 @@ import { noteSecurityWarnings } from "./doctor-security.js";
 import { noteSessionLockHealth } from "./doctor-session-locks.js";
 import { noteSessionHealth } from "./doctor-session-health.js";
 import { noteOrphanedSessions } from "./doctor-orphaned-sessions.js";
+import { noteAgentDirHealth } from "./doctor-agent-dirs.js";
 import { noteStateIntegrity, noteWorkspaceBackupTip } from "./doctor-state-integrity.js";
 import {
   detectLegacyStateMigrations,
@@ -225,6 +226,7 @@ export async function doctorCommand(
   await noteSessionLockHealth({ shouldRepair: prompter.shouldRepair });
   await noteSessionHealth();
   await noteOrphanedSessions();
+  noteAgentDirHealth(cfg);
   await maybeRepairLegacyCronStore({
     cfg,
     options,
